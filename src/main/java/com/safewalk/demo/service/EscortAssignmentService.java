@@ -104,6 +104,10 @@ public class EscortAssignmentService {
         EscortAssignment assignment = assignmentRepository.findById(assignmentId)
                 .orElseThrow(() -> new RuntimeException("Assignment not found"));
 
+        if (assignment.getStatus() == EscortAssignment.AssignmentStatus.COMPLETED) {
+            throw new RuntimeException("Completed escort cannot be canceled");
+        }
+
         assignment.setStatus(EscortAssignment.AssignmentStatus.CANCELLED);
 
         EscortRequest request = assignment.getEscortRequest();
@@ -112,5 +116,6 @@ public class EscortAssignmentService {
         escortRequestRepository.save(request);
 
         return assignmentRepository.save(assignment);
-    }
+}
+
 }

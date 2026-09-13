@@ -1,5 +1,6 @@
 package com.safewalk.demo.controller;
 
+import com.safewalk.demo.dto.EscortAssignmentResponseDTO;
 import com.safewalk.demo.model.EscortAssignment;
 import com.safewalk.demo.service.EscortAssignmentService;
 
@@ -18,46 +19,54 @@ public class EscortAssignmentController {
 
     // Accept an escort request
     @PostMapping("/accept/{requestId}/{escortId}")
-    public ResponseEntity<EscortAssignment> acceptRequest(
+    public ResponseEntity<EscortAssignmentResponseDTO> acceptRequest(
             @PathVariable Long requestId,
             @PathVariable Long escortId) {
 
         EscortAssignment assignment =
                 assignmentService.acceptRequest(requestId, escortId);
 
-        return ResponseEntity.ok(assignment);
+        return ResponseEntity.ok(
+                new EscortAssignmentResponseDTO(assignment)
+        );
     }
 
     // Start an escort
     @PostMapping("/{assignmentId}/start")
-    public ResponseEntity<EscortAssignment> startEscort(
+    public ResponseEntity<EscortAssignmentResponseDTO> startEscort(
             @PathVariable Long assignmentId) {
 
         EscortAssignment assignment =
                 assignmentService.startEscort(assignmentId);
 
-        return ResponseEntity.ok(assignment);
+        return ResponseEntity.ok(
+                new EscortAssignmentResponseDTO(assignment)
+        );
     }
 
     // Complete an escort
     @PostMapping("/{assignmentId}/complete")
-    public ResponseEntity<EscortAssignment> completeEscort(
+    public ResponseEntity<EscortAssignmentResponseDTO> completeEscort(
             @PathVariable Long assignmentId) {
 
         EscortAssignment assignment =
                 assignmentService.completeEscort(assignmentId);
 
-        return ResponseEntity.ok(assignment);
+        return ResponseEntity.ok(
+                new EscortAssignmentResponseDTO(assignment)
+        );
     }
 
     // Cancel an assignment
     @PostMapping("/{assignmentId}/cancel")
-    public ResponseEntity<EscortAssignment> cancelAssignment(
+    public ResponseEntity<EscortAssignmentResponseDTO> cancelAssignment(
             @PathVariable Long assignmentId) {
 
         EscortAssignment assignment =
                 assignmentService.cancelAssignment(assignmentId);
 
-        return ResponseEntity.ok(assignment);
+        return ResponseEntity.ok(
+                new EscortAssignmentResponseDTO(assignment)
+        );
     }
 }
