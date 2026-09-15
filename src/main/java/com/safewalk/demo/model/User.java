@@ -1,6 +1,7 @@
 package com.safewalk.demo.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +19,7 @@ public class User {
     @Column(unique = true)
     private String phone;
 
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)

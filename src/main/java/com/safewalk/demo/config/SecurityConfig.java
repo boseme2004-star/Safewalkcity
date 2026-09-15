@@ -21,10 +21,20 @@ public class SecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/api/escort-requests/**").permitAll()
-            .requestMatchers("/api/escort-assignments/**").permitAll()
-            .anyRequest().authenticated()
+
+                .requestMatchers("/api/auth/**").permitAll()
+
+                .requestMatchers("/api/escort-requests/**").permitAll()
+
+                .requestMatchers("/api/escort-assignments/**").permitAll()
+
+                .requestMatchers("/api/escort-sessions/**").permitAll()
+
+                .requestMatchers("/api/trusted-contacts/**").permitAll()
+
+                .requestMatchers("/api/emergency/**").permitAll()
+
+                .anyRequest().authenticated()
             );
 
         return http.build();
