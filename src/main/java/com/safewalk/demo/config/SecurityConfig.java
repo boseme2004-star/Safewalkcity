@@ -34,6 +34,8 @@ public class SecurityConfig {
 
                 .requestMatchers("/api/emergency/**").permitAll()
 
+                .requestMatchers("/api/safety-reports/**").permitAll()
+
                 .anyRequest().authenticated()
             );
 
