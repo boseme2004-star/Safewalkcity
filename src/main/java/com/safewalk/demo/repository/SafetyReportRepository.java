@@ -37,4 +37,17 @@ public interface SafetyReportRepository
     List<Object[]> findHighRiskLocations(
             @Param("severities")
             List<SafetyReport.Severity> severities);
+
+   @Query("""
+    SELECT r.location, COUNT(r)
+    FROM SafetyReport r
+    GROUP BY r.location
+    ORDER BY COUNT(r) DESC
+    """)
+   List<Object[]> getSafetyHeatMapData();
+
+   long countBySeverity(SafetyReport.Severity severity);
+
+   long countByCategory(SafetyReport.ReportCategory category);
+
 }

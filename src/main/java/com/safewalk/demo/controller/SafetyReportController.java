@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/safety-reports")
@@ -121,4 +122,20 @@ public class SafetyReportController {
                 safetyReportService.getHighRiskLocations()
         );
     }
+
+    @GetMapping("/heat-map")
+public ResponseEntity<List<Object[]>> getSafetyHeatMapData() {
+
+    return ResponseEntity.ok(
+            safetyReportService.getSafetyHeatMapData()
+    );
+}
+@GetMapping("/analytics")
+public ResponseEntity<Map<String, Object>> getAnalytics() {
+
+    return ResponseEntity.ok(
+            safetyReportService.getAnalytics()
+    );
+}
+
 }
