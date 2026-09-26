@@ -4,10 +4,13 @@ import com.safewalk.demo.model.SafetyReport;
 import com.safewalk.demo.model.User;
 import com.safewalk.demo.repository.SafetyReportRepository;
 import com.safewalk.demo.repository.UserRepository;
+import java.util.Map;
+import java.util.LinkedHashMap;
 
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service
@@ -111,4 +114,49 @@ public class SafetyReportService {
                 )
         );
     }
+
+    public List<Object[]> getSafetyHeatMapData() {
+
+    return reportRepository.getSafetyHeatMapData();
+}
+   public Map<String, Object> getAnalytics() {
+
+    Map<String, Object> analytics = new LinkedHashMap<>();
+
+    analytics.put(
+            "totalReports",
+            reportRepository.count()
+    );
+
+    analytics.put(
+            "lowReports",
+            reportRepository.countBySeverity(
+                    SafetyReport.Severity.LOW
+            )
+    );
+
+    analytics.put(
+            "mediumReports",
+            reportRepository.countBySeverity(
+                    SafetyReport.Severity.MEDIUM
+            )
+    );
+
+    analytics.put(
+            "highReports",
+            reportRepository.countBySeverity(
+                    SafetyReport.Severity.HIGH
+            )
+    );
+
+    analytics.put(
+            "criticalReports",
+            reportRepository.countBySeverity(
+                    SafetyReport.Severity.CRITICAL
+            )
+    );
+
+    return analytics;
+}
+
 }
